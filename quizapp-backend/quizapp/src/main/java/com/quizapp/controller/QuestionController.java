@@ -12,20 +12,22 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/questions")
-public class QuestionController 
+public class QuestionController {
 
     private final QuestionService service;
 
     public QuestionController(QuestionService service) {
         this.service = service;
     }
-
     @GetMapping
     public List<Question> getQuestions() {
         return service.getAllQuestions();
     }
-
-    // ✅ ADD THIS: PUT Mapping to update a question by ID
+    @PostMapping
+    public ResponseEntity<Question> addQuestion(@RequestBody Question newQuestion) {
+        Question savedQuestion = service.saveQuestion(newQuestion);
+        return ResponseEntity.ok(savedQuestion);
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Question> updateQuestion(@PathVariable int id, @RequestBody Question updatedQuestion) {
         Optional<Question> existing = service.getQuestionById(id);
