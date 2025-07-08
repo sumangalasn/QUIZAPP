@@ -12,7 +12,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/questions")
-public class QuestionController {
+public class QuestionController 
 
     private final QuestionService service;
 
